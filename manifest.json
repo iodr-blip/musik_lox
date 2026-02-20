@@ -1,0 +1,22 @@
+{
+  "name": "MeganNait — THE COMMUNICATION",
+  "short_name": "MeganNait",
+  "description": "Мессенджер от 14-летнего разработчика. Сверхбыстрая связь, полная приватность и современный дизайн.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0e1621",
+  "theme_color": "#17212b",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

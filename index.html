@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>MeganNait — Скорость, рожденная мечтой</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="MeganNait — сверхбыстрый и приватный мессенджер, созданный 14-летним разработчиком. Молниеносная передача данных и абсолютная безопасность без рекламы.">
+    <meta name="keywords" content="мессенджер, быстрый мессенджер, MeganNait, приватность, E2EE, общение, 14 летний разработчик">
+    
+    <!-- Favicon for Google Search -->
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="shortcut icon" href="logo.png">
+
+    <!-- OpenGraph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://megannait.site/">
+    <meta property="og:title" content="MeganNait — Мессенджер от 14-летнего разработчика">
+    <meta property="og:description" content="Скорость, которая опережает мысли. Самый быстрый мессенджер в мире. Создан в 14 лет.">
+    <meta property="og:image" content="logo.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="MeganNait — THE COMMUNICATION">
+    <meta property="twitter:description" content="Сверхбыстрый мессенджер, созданный 14-летнего пацаном. Попробуй скорость на вкус.">
+    <meta property="twitter:image" content="logo.png">
+
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="MeganNait">
+    <meta name="theme-color" content="#17212b">
+    <link rel="apple-touch-icon" href="logo.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sat: env(safe-area-inset-top);
+            --sar: env(safe-area-inset-right);
+            --sab: env(safe-area-inset-bottom);
+            --sal: env(safe-area-inset-left);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Apple Color Emoji', 'Segoe UI Emoji', sans-serif;
+            background-color: #0e1621;
+            color: white;
+            margin: 0;
+            overflow: hidden;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+            user-select: none;
+            height: 100dvh;
+            width: 100vw;
+            touch-action: manipulation;
+            overscroll-behavior: none;
+        }
+
+        #root {
+            height: 100%;
+            width: 100%;
+        }
+
+        .auth-container {
+            height: 100dvh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background-color: #0e1621;
+        }
+
+        .auth-box {
+            background: white;
+            width: 100%;
+            max-width: 400px;
+            padding: 40px;
+            border-radius: 32px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            color: #1a1a1a;
+        }
+
+        .auth-logo-circle {
+            width: 90px;
+            height: 90px;
+            background: #3390ec;
+            border-radius: 26px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            color: white;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(51, 144, 236, 0.25);
+        }
+        
+        .logo-m-bolt {
+            font-size: 42px;
+            font-weight: 900;
+            font-style: italic;
+            position: relative;
+            left: -2px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .select-text {
+            user-select: text !important;
+            -webkit-user-select: text !important;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+        }
+
+        .chat-bg {
+            background-color: #0e1621;
+            background-image: url("https://www.transparenttextures.com/patterns/cubes.png");
+            background-blend-mode: overlay;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { 
+            from { opacity: 0; transform: translateY(12px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+
+        @keyframes typingDots {
+            0%, 100% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+        
+        .typing-dot {
+            width: 3.5px;
+            height: 3.5px;
+            background-color: currentColor;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 2px;
+            animation: typingDots 1.2s infinite ease-in-out;
+        }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        .animate-fade-in { animation: fadeIn 0.15s ease-out; }
+        .animate-slide-up { animation: slideUp 0.25s cubic-bezier(0.2, 0.8, 0.2, 1); }
+
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        
+        input, textarea, button {
+            -webkit-tap-highlight-color: rgba(0,0,0,0);
+            outline: none;
+        }
+        
+        [title]:hover::after {
+            content: attr(title);
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            white-space: pre;
+            z-index: 1000;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            pointer-events: none;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        @keyframes logoBreathing {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0px rgba(51, 144, 236, 0)); }
+            50% { transform: scale(1.04); filter: drop-shadow(0 0 25px rgba(51, 144, 236, 0.35)); }
+        }
+
+        .logo-breathing {
+            animation: logoBreathing 5s infinite ease-in-out;
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.02);
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "@google/genai": "https://esm.sh/@google/genai@^1.38.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "react": "https://esm.sh/react@^19.2.4/",
+    "firebase/app": "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js",
+    "firebase/auth": "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js",
+    "firebase/firestore": "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js",
+    "firebase/": "https://esm.sh/firebase@^12.8.0/"
+  }
+}
+</script>
+<script>
+    document.addEventListener('contextmenu', event => {
+        if (!event.target.closest('.select-text')) {
+            event.preventDefault();
+        }
+    });
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        if (window.location.protocol === 'https:' || window.location.hostname === 'localhost') {
+            navigator.serviceWorker.register('sw.js').then(registration => {
+              console.log('SW registered');
+            }).catch(err => {
+              console.warn('SW registration skipped or failed:', err.message);
+            });
+        }
+      });
+    }
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      window.deferredPrompt = e; 
+      window.dispatchEvent(new CustomEvent('pwa-installable')); 
+    });
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body>
+    <div id="root"></div>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
