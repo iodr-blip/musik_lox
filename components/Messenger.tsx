@@ -909,37 +909,31 @@ const Messenger: React.FC<{ user: User, onLogout: () => void, onImpersonate?: (u
           <div className="flex-1 flex flex-col items-center justify-center chat-bg relative text-center px-10 overflow-hidden">
             <div className="absolute inset-0 opacity-[0.05] pointer-events-none z-0"></div>
             
-            <div className="flex flex-col items-center gap-10 z-10 animate-fade-in relative max-w-sm">
-               {/* Abstract floating shapes behind logo */}
-               <div className="absolute -top-12 -left-12 w-48 h-48 bg-blue-500/10 blur-[100px] rounded-full"></div>
-               <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-blue-500/5 blur-[100px] rounded-full"></div>
-               
-               <div className="relative group logo-breathing cursor-default">
-                  <div className="absolute inset-[-12px] bg-blue-500/15 blur-2xl rounded-full scale-125 opacity-70 group-hover:opacity-100 transition-opacity duration-1000"></div>
-                  <div className="w-28 h-28 md:w-32 md:h-32 rounded-[38px] bg-gradient-to-br from-[#1c2a38] to-[#0e1621] flex items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden">
-                    <div className="absolute inset-0 bg-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
-                    <MainLogo glow className="w-16 h-16 md:w-20 md:h-20 relative z-10" />
+            <div className="flex flex-col items-center gap-8 z-10 animate-fade-in relative max-w-sm">
+               <div className="relative group cursor-default">
+                  <div className="w-24 h-24 md:w-28 md:h-28 rounded-[32px] bg-[#1c2a38] flex items-center justify-center border border-white/5 relative overflow-hidden">
+                    <MainLogo className="w-14 h-14 md:w-16 md:h-16 relative z-10" />
                   </div>
                </div>
                
                <div className="space-y-6">
-                 <div className="glass-panel px-6 py-4 rounded-[28px] shadow-2xl border border-white/5 animate-slide-up">
-                   <div className="text-white/90 font-black text-[16px] md:text-[18px] uppercase tracking-[0.35em] block leading-none">MeganNait</div>
-                   <div className="text-[10px] md:text-[11px] text-blue-500 font-black uppercase tracking-[0.45em] mt-3 block opacity-70">THE COMMUNICATION</div>
+                 <div className="px-6 py-4 rounded-[24px] border border-white/5 animate-slide-up">
+                   <div className="text-white/80 font-bold text-[16px] md:text-[18px] uppercase tracking-[0.3em] block leading-none">MeganNait</div>
+                   <div className="text-[10px] md:text-[11px] text-[#7f91a4] font-bold uppercase tracking-[0.4em] mt-3 block opacity-60">THE COMMUNICATION</div>
                  </div>
                  
                  <div className="space-y-2 animate-slide-up" style={{ animationDelay: '0.1s' }}>
-                   <p className="text-[14px] md:text-[15px] text-[#7f91a4] font-medium leading-relaxed opacity-90">
+                   <p className="text-[14px] md:text-[15px] text-[#7f91a4]/80 font-medium leading-relaxed">
                      Выберите чат, чтобы начать общение
                    </p>
-                   <p className="text-[11px] text-[#7f91a4]/40 font-semibold uppercase tracking-widest">
+                   <p className="text-[10px] text-[#7f91a4]/30 font-bold uppercase tracking-widest">
                      Security • Privacy • Speed
                    </p>
                  </div>
                </div>
                
-               <div className="pt-2 flex gap-3 opacity-20 animate-slide-up" style={{ animationDelay: '0.2s' }}>
-                 <div className="w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.8)]"></div>
+               <div className="pt-2 flex gap-2.5 opacity-10 animate-slide-up" style={{ animationDelay: '0.2s' }}>
+                 <div className="w-1.5 h-1.5 rounded-full bg-white/60"></div>
                  <div className="w-1.5 h-1.5 rounded-full bg-white/40"></div>
                  <div className="w-1.5 h-1.5 rounded-full bg-white/40"></div>
                </div>

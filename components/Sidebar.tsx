@@ -286,7 +286,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         <div className="p-5 flex flex-col gap-4 border-b border-black/20 shrink-0 relative">
           <div className="flex justify-between items-start">
             <img src={currentUser.avatarUrl} className="w-16 h-16 rounded-full object-cover shadow-lg border-2 border-white/5" alt="avatar" />
-            <MainLogo className="w-10 h-10 opacity-30 drop-shadow-[0_0_8px_rgba(0,198,255,0.3)]" />
+            <MainLogo className="w-10 h-10 opacity-30" />
           </div>
           <div className="min-w-0">
             <div className="font-bold text-lg text-white flex items-center gap-0.5 min-w-0">

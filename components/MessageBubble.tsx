@@ -48,6 +48,18 @@ const VoicePlayer: React.FC<{ url: string, isMe: boolean, message: Message }> = 
   const [duration, setDuration] = useState(0);
   const audioRef = useRef<HTMLAudioElement>(null);
 
+  // Generate a stable "waveform" pattern based on message ID or random seed
+  const waveformBars = useMemo(() => {
+    const bars = [];
+    const seed = message.id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    for (let i = 0; i < 35; i++) {
+      // Deterministic heights between 20% and 100%
+      const height = 20 + (Math.abs(Math.sin(seed + i * 0.5)) * 80);
+      bars.push(height);
+    }
+    return bars;
+  }, [message.id]);
+
   const togglePlay = () => {
     if (!audioRef.current) return;
     if (isPlaying) {
@@ -89,8 +101,16 @@ const VoicePlayer: React.FC<{ url: string, isMe: boolean, message: Message }> = 
     }
   };
 
+  const handleSeek = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!audioRef.current || !duration) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const clickedProgress = (x / rect.width);
+    audioRef.current.currentTime = clickedProgress * duration;
+  };
+
   return (
-    <div className="flex items-center gap-3 py-1.5 min-w-[220px] relative pr-1">
+    <div className="flex items-center gap-3 py-2 min-w-[240px] relative pr-2 group/voice">
       <audio 
         ref={audioRef} 
         src={url} 
@@ -98,33 +118,53 @@ const VoicePlayer: React.FC<{ url: string, isMe: boolean, message: Message }> = 
         onLoadedMetadata={onLoadedMetadata}
         onEnded={onEnded}
       />
+      
       <button 
         onClick={togglePlay} 
-        className={`w-10 h-10 rounded-full flex items-center justify-center transition-all shrink-0
-          ${isMe ? 'bg-white/20 hover:bg-white/30 text-white' : 'bg-blue-500 hover:bg-blue-600 text-white'}`}
+        className={`w-11 h-11 rounded-full flex items-center justify-center transition-all shrink-0 shadow-lg
+          ${isMe 
+            ? 'bg-white text-[#2b5278] hover:bg-white/90 active:scale-90' 
+            : 'bg-blue-500 text-white hover:bg-blue-600 active:scale-90'}`}
       >
-        <i className={`fa-solid ${isPlaying ? 'fa-pause' : 'fa-play'} text-sm ${!isPlaying ? 'ml-0.5' : ''}`}></i>
+        <i className={`fa-solid ${isPlaying ? 'fa-pause' : 'fa-play'} text-lg ${!isPlaying ? 'ml-1' : ''}`}></i>
       </button>
       
-      <div className="flex-1 flex flex-col gap-1.5 justify-center">
-        <div className="h-1 bg-white/20 rounded-full relative overflow-hidden">
-            <div 
-                className={`absolute inset-y-0 left-0 transition-all duration-100 ${isMe ? 'bg-white' : 'bg-blue-400'}`} 
-                style={{ width: `${progress}%` }} 
-            />
+      <div className="flex-1 flex flex-col gap-1 justify-center">
+        <div 
+          className="h-8 flex items-center gap-[2px] cursor-pointer relative"
+          onClick={handleSeek}
+        >
+          {waveformBars.map((height, i) => {
+            const barProgress = (i / waveformBars.length) * 100;
+            const isActive = progress > barProgress;
+            return (
+              <div 
+                key={i}
+                className={`flex-1 rounded-full transition-all duration-300
+                  ${isActive 
+                    ? (isMe ? 'bg-white' : 'bg-blue-400') 
+                    : (isMe ? 'bg-white/20' : 'bg-white/10')}`}
+                style={{ height: `${height}%` }}
+              />
+            );
+          })}
         </div>
-        <div className="flex items-center justify-between">
-          <span className="text-[10px] font-bold text-white/50">
-            {formatDuration(audioRef.current?.currentTime || duration)} / {message.fileSize || '7.9 KB'}
+        
+        <div className="flex items-center justify-between mt-0.5">
+          <span className="text-[10px] font-bold text-white/50 tracking-tight">
+            {formatDuration(isPlaying ? (audioRef.current?.currentTime || 0) : duration)}
+          </span>
+          <span className="text-[10px] font-bold text-white/30 tracking-tight uppercase">
+            {message.fileSize || '7.9 KB'}
           </span>
         </div>
       </div>
 
-      <div className="absolute right-1 bottom-[-4px] flex items-center gap-1 pointer-events-none">
-        <span className="text-[10px] font-bold text-white/40">
+      <div className="absolute right-1 bottom-[-6px] flex items-center gap-1 pointer-events-none">
+        <span className="text-[9px] font-bold text-white/30">
           {formatTime(message.timestamp)}
         </span>
-        {isMe && <StatusIcon status={message.status} className="w-[16px] h-[10px]" />}
+        {isMe && <StatusIcon status={message.status} className="w-[14px] h-[9px] opacity-60" />}
       </div>
     </div>
   );

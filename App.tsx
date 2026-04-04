@@ -121,7 +121,7 @@ const App: React.FC = () => {
     return (
       <div className="h-[100dvh] w-full bg-[#0b0f14] flex items-center justify-center animate-fade-in">
         <div className="flex flex-col items-center">
-          <MainLogo className="w-20 h-20 mb-6 animate-pulse drop-shadow-[0_0_15px_rgba(0,198,255,0.4)]" />
+          <MainLogo className="w-16 h-16 mb-6 opacity-80" />
           <p className="text-slate-500 font-bold tracking-[0.4em] text-[9px] uppercase opacity-50">MeganNait OS</p>
         </div>
       </div>
